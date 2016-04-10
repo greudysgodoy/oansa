@@ -3,24 +3,25 @@
 namespace Oansa\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Oansa\Oansista;
+use Oansa\Area;
 use Oansa\Http\Requests;
-use Oansa\Http\Requests\OansistaRequest;
 use Oansa\Http\Controllers\Controller;
 use Illuminate\Routing\Route;
 use Session;
 use Redirect;
 use Auth;
 
-class OansistaController extends Controller
+class AreaController extends Controller
 {
+
     public function __construct(){
         //$this->middleware('auth');
         //$this->middleware('admin');
         $this->beforeFilter('@find',['only' => ['edit','update','destroy']]);
     }
+
     public function find(Route $route){
-        $this->oansista = Oansista::find($route->getParameter('oansista'));
+        $this->area = Area::find($route->getParameter('area'));
     }
 
     /**
@@ -30,8 +31,8 @@ class OansistaController extends Controller
      */
     public function index()
     {
-        $oansistas = Oansista::orderBy('grado','ASC')->get();
-        return view('oansista.index',compact('oansistas'));
+        $areas = Area::All();
+        return view('area.index',compact('areas'));
     }
 
     /**
@@ -41,7 +42,7 @@ class OansistaController extends Controller
      */
     public function create()
     {
-        return view('oansista.create');
+        return view('area.create');
     }
 
     /**
@@ -50,33 +51,17 @@ class OansistaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AreaRequest $request)
+    public function store(Request $request)
     {
         $nombre=$request['nombre'];
-        $apellido=$request['apellido'];
-        $fechaNacimiento=$request['fechaNacimiento'];
-        $grado=$request['grado'];
-        $sexo=$request['sexo']; 
-        $direccion=$request['direccion'];
-        $telefono=$request['telefono'];
-        $representante=$request['representante'];
-        $telefonoRepresentante=$request['telefonoRepresentante'];
-        $iglesia=$request['iglesia'];
-        Oansista::create([
+        $descripcion=$request['descripcion'];
+        Area::create([
             'nombre'=>$nombre,
-            'apellido'=>$apellido,
-            'fechaNacimiento'=>$fechaNacimiento,
-            'grado'=>$grado,
-            'sexo'=>$sexo,
-            'direccion'=>$direccion,
-            'telefono'=>$telefono,
-            'representante'=>$representante,
-            'telefonoRepresentante'=>$telefonoRepresentante,
-            'iglesia'=>$iglesia,
+            'descripcion'=>$descripcion,
             'estatus' => '1',
             ]);
-        Session::flash('message-success','Oansista registrado exitosamente');
-        return Redirect::to('/oansista');
+        Session::flash('message-success','Área registrada exitosamente');
+        return Redirect::to('/area');
     }
 
     /**
@@ -98,7 +83,7 @@ class OansistaController extends Controller
      */
     public function edit($id)
     {
-        return view('oansista.edit',['oansista'=>$this->oansista]);
+        return view('area.edit',['area'=>$this->area]);
     }
 
     /**
@@ -108,12 +93,12 @@ class OansistaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AreaRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $this->oansista->fill($request->all());
-        $this->oansista->save();
-        Session::flash('message-success','Oansista Actualizado Correctamente');
-        return Redirect::to('/oansista');
+        $this->area->fill($request->all());
+        $this->area->save();
+        Session::flash('message-success','Área Actualizada Correctamente');
+        return Redirect::to('/area');
     }
 
     /**
@@ -124,9 +109,8 @@ class OansistaController extends Controller
      */
     public function destroy($id)
     {
-        
-        $this->oansista->delete();
-        Session::flash('message-success','Oansista Eliminado Correctamente');
-        return Redirect::to('/oansista');
+        $this->area->delete();
+        Session::flash('message-success','Área Eliminado Correctamente');
+        return Redirect::to('/area');
     }
 }

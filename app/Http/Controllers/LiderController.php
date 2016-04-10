@@ -3,16 +3,11 @@
 namespace Oansa\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Oansa\Oansista;
-use Oansa\Http\Requests;
-use Oansa\Http\Requests\OansistaRequest;
-use Oansa\Http\Controllers\Controller;
-use Illuminate\Routing\Route;
-use Session;
-use Redirect;
-use Auth;
 
-class OansistaController extends Controller
+use Oansa\Http\Requests;
+use Oansa\Http\Controllers\Controller;
+
+class LiderController extends Controller
 {
     public function __construct(){
         //$this->middleware('auth');
@@ -20,7 +15,7 @@ class OansistaController extends Controller
         $this->beforeFilter('@find',['only' => ['edit','update','destroy']]);
     }
     public function find(Route $route){
-        $this->oansista = Oansista::find($route->getParameter('oansista'));
+        $this->lider = Lider::find($route->getParameter('lider'));
     }
 
     /**
@@ -30,8 +25,8 @@ class OansistaController extends Controller
      */
     public function index()
     {
-        $oansistas = Oansista::orderBy('grado','ASC')->get();
-        return view('oansista.index',compact('oansistas'));
+        $lideres = Lider::All();
+        return view('lider.index',compact('lideres'));
     }
 
     /**
@@ -41,7 +36,7 @@ class OansistaController extends Controller
      */
     public function create()
     {
-        return view('oansista.create');
+        return view('lider.create');
     }
 
     /**
@@ -50,19 +45,19 @@ class OansistaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AreaRequest $request)
+    public function store(Request $request)
     {
         $nombre=$request['nombre'];
         $apellido=$request['apellido'];
         $fechaNacimiento=$request['fechaNacimiento'];
-        $grado=$request['grado'];
         $sexo=$request['sexo']; 
         $direccion=$request['direccion'];
         $telefono=$request['telefono'];
-        $representante=$request['representante'];
-        $telefonoRepresentante=$request['telefonoRepresentante'];
+        $idArea=$request['idArea'];
+        $liderGdc=$request['liderGdc'];
+        $telefonoLiderGdc=$request['telefonoLiderGdc'];
         $iglesia=$request['iglesia'];
-        Oansista::create([
+        Lider::create([
             'nombre'=>$nombre,
             'apellido'=>$apellido,
             'fechaNacimiento'=>$fechaNacimiento,
@@ -98,7 +93,7 @@ class OansistaController extends Controller
      */
     public function edit($id)
     {
-        return view('oansista.edit',['oansista'=>$this->oansista]);
+        //
     }
 
     /**
@@ -108,12 +103,9 @@ class OansistaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(AreaRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $this->oansista->fill($request->all());
-        $this->oansista->save();
-        Session::flash('message-success','Oansista Actualizado Correctamente');
-        return Redirect::to('/oansista');
+        //
     }
 
     /**
@@ -124,9 +116,6 @@ class OansistaController extends Controller
      */
     public function destroy($id)
     {
-        
-        $this->oansista->delete();
-        Session::flash('message-success','Oansista Eliminado Correctamente');
-        return Redirect::to('/oansista');
+        //
     }
 }

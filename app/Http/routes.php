@@ -17,3 +17,7 @@ Route::get('/', function () {
 Route::get('admin','FrontController@admin');
 
 Route::resource('oansista','OansistaController');
+
+Route::resource('area','AreaController');
+
+Route::resource('lider','AreaController');

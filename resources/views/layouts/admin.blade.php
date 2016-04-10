@@ -77,10 +77,10 @@
                             <a href="#"><i class="fa fa-users fa-fw"></i> Area<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#"><i class='fa fa-plus fa-fw'></i> Agregar</a>
+                                    <a href="{!!URL::to('/area/create')!!}"><i class='fa fa-plus fa-fw'></i> Agregar</a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class='fa fa-list-ol fa-fw'></i> Listado</a>
+                                    <a href="{!!URL::to('/area')!!}"><i class='fa fa-list-ol fa-fw'></i> Listado</a>
                                 </li>
                             </ul>
                         </li>
