@@ -36,7 +36,8 @@ class LiderController extends Controller
      */
     public function create()
     {
-        return view('lider.create');
+        $areas = Areas::All();
+        return view('lider.create',compact('areas'));
     }
 
     /**
@@ -56,22 +57,20 @@ class LiderController extends Controller
         $idArea=$request['idArea'];
         $liderGdc=$request['liderGdc'];
         $telefonoLiderGdc=$request['telefonoLiderGdc'];
-        $iglesia=$request['iglesia'];
         Lider::create([
             'nombre'=>$nombre,
             'apellido'=>$apellido,
             'fechaNacimiento'=>$fechaNacimiento,
-            'grado'=>$grado,
             'sexo'=>$sexo,
             'direccion'=>$direccion,
             'telefono'=>$telefono,
-            'representante'=>$representante,
-            'telefonoRepresentante'=>$telefonoRepresentante,
-            'iglesia'=>$iglesia,
+            'idArea'=>$idArea,
+            'liderGdc'=>$liderGdc,
+            'telefonoLiderGdc'=>$telefonoLiderGdc,
             'estatus' => '1',
             ]);
-        Session::flash('message-success','Oansista registrado exitosamente');
-        return Redirect::to('/oansista');
+        Session::flash('message-success','Lider registrado exitosamente');
+        return Redirect::to('/lider');
     }
 
     /**
