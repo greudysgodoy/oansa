@@ -13,16 +13,21 @@ class CreateLideresTable extends Migration
     public function up()
     {
         Schema::create('lideres', function (Blueprint $table) {
-            $table->increments('id');
+            $table->string('cedula');
             $table->string('nombre');
             $table->string('apellido');
             $table->date('fechaNacimiento');
             $table->char('sexo');
-            $table->string('direccion');
             $table->string('telefono');
-            $table->string('idArea');
+            $table->string('email');
+            $table->string('password');
+            $table->integer('area_Id')->unsigned();
+            $table->foreign('area_Id')->references('id')->on('areas');
+            $table->integer('rol_Id')->unsigned();
+            $table->foreign('rol_Id')->references('id')->on('roles');
             $table->string('liderGdc');
             $table->string('telefonoLiderGdc');
+            
             $table->char('estatus');
             $table->timestamps();
         });

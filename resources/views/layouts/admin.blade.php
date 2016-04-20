@@ -65,10 +65,10 @@
                             <a href="#"><i class="fa fa-child fa-fw"></i> Lider<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
                                 <li>
-                                    <a href="#"><i class='fa fa-plus fa-fw'></i> Agregar</a>
+                                    <a href="{!! URL::to('/lider/create') !!}"><i class='fa fa-plus fa-fw'></i> Agregar</a>
                                 </li>
                                 <li>
-                                    <a href="#"><i class='fa fa-list-ol fa-fw'></i> Listado</a>
+                                    <a href="{!! URL::to('/lider') !!}"><i class='fa fa-list-ol fa-fw'></i> Listado</a>
                                 </li>
                             </ul>
                         </li>
@@ -81,6 +81,18 @@
                                 </li>
                                 <li>
                                     <a href="{!!URL::to('/area')!!}"><i class='fa fa-list-ol fa-fw'></i> Listado</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Administraión de roles<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{!!URL::to('/rol/create')!!}"><i class='fa fa-plus fa-fw'></i> Agregar</a>
+                                </li>
+                                <li>
+                                    <a href="{!!URL::to('/rol')!!}"><i class='fa fa-list-ol fa-fw'></i> Listado</a>
                                 </li>
                             </ul>
                         </li>

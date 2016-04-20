@@ -9,24 +9,20 @@
 			<th>Teléfono</th>
 			<th>Líder de Gdc</th>
 			<th>Teléfono de líder Gdc</th>
+			<th>Rol</th>
 		</thead>
 		@foreach($lideres as $lider)
 			<tbody>
-				<td>{{$->nombre}}</td>
-				<td>{{$lider->apellido}}</td>
-				<td>
-				@if($lider->grado < 4)
-					Chispas
-					@elseif($lideroansista->grado < 6)
-						Llamas
-					@else
-						Antorchas
-				@endif
+				<td>{{ $lider->nombre }}</td>
+				<td>{{ $lider->apellido }}</td>
+				<td>{{ $lider->nombreArea }}</td>
+				<td>{{ $lider->telefono }}</td>
+				<td>{{ $lider->liderGdc }}</td>
+				<td>{{ $lider->telefonoLiderGdc }}</td>
+				<td>{{ $lider->nombreRol }}</td>
 
-				</td>
-				
 				<td>
-					{!!link_to_route('lideroansista.edit', $title = 'Editar', $parameters = $lideroansista->id, $attributes = ['class'=>'btn btn-primary'])!!}
+					{!!link_to_route('lider.edit', $title = 'Editar', $parameters = $lider->cedula, $attributes = ['class'=>'btn btn-primary'])!!}
 				</td>
 			</tbody>
 		@endforeach

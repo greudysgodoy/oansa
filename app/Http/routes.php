@@ -20,4 +20,6 @@ Route::resource('oansista','OansistaController');
 
 Route::resource('area','AreaController');
 
-Route::resource('lider','AreaController');
+Route::resource('lider','LiderController');
+
+Route::resource('rol','RolController');

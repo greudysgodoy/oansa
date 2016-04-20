@@ -4,8 +4,15 @@ namespace Oansa\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use Oansa\Http\Requests;
+use Oansa\Http\Requests\LiderRequest;
+use Oansa\Lider;
+use Oansa\Area;
+use Oansa\Rol;
+use DB;
 use Oansa\Http\Controllers\Controller;
+use Illuminate\Routing\Route;
+use Session;
+use Redirect;
 
 class LiderController extends Controller
 {
@@ -25,7 +32,11 @@ class LiderController extends Controller
      */
     public function index()
     {
-        $lideres = Lider::All();
+        $lideres = DB::table('lideres')
+            ->join('areas','lideres.area_Id','=','areas.id')
+            ->join('roles','lideres.rol_Id','=','roles.id')
+            ->select('lideres.*','areas.nombre AS nombreArea','roles.nombre AS nombreRol')
+            ->get();
         return view('lider.index',compact('lideres'));
     }
 
@@ -36,8 +47,9 @@ class LiderController extends Controller
      */
     public function create()
     {
-        $areas = Areas::All();
-        return view('lider.create',compact('areas'));
+        $areas = Area::lists('nombre','id');
+        $roles = Rol::lists('nombre','id');
+        return view('lider.create',compact('areas','roles'));
     }
 
     /**
@@ -46,27 +58,33 @@ class LiderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(LiderRequest $request)
     {
+        $cedula=$request['cedula'];
         $nombre=$request['nombre'];
         $apellido=$request['apellido'];
         $fechaNacimiento=$request['fechaNacimiento'];
         $sexo=$request['sexo']; 
-        $direccion=$request['direccion'];
         $telefono=$request['telefono'];
-        $idArea=$request['idArea'];
+        $email=$request['email'];
+        $area_Id=$request['area_Id'];
+        $rol_Id = $request['rol_Id'];
         $liderGdc=$request['liderGdc'];
         $telefonoLiderGdc=$request['telefonoLiderGdc'];
+        $password=$request['password'];
         Lider::create([
+            'cedula'=>$cedula,
             'nombre'=>$nombre,
             'apellido'=>$apellido,
             'fechaNacimiento'=>$fechaNacimiento,
             'sexo'=>$sexo,
-            'direccion'=>$direccion,
             'telefono'=>$telefono,
-            'idArea'=>$idArea,
+            'email'=>$email,
+            'password'=>$password,
             'liderGdc'=>$liderGdc,
             'telefonoLiderGdc'=>$telefonoLiderGdc,
+            'area_Id'=>$area_Id,
+            'rol_Id' =>$rol_Id,
             'estatus' => '1',
             ]);
         Session::flash('message-success','Lider registrado exitosamente');
@@ -92,7 +110,9 @@ class LiderController extends Controller
      */
     public function edit($id)
     {
-        //
+        $areas = Area::lists('nombre','id');
+        $roles = Rol::lists('nombre','id');
+        return view('lider.edit',['lider'=>$this->lider],compact('areas','roles'));
     }
 
     /**
@@ -102,9 +122,12 @@ class LiderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(LiderRequest $request, $id)
     {
-        //
+        $this->oansista->fill($request->all());
+        $this->oansista->save();
+        Session::flash('message-success','Lider Actualizado Correctamente');
+        return Redirect::to('/lider');
     }
 
     /**
@@ -115,6 +138,8 @@ class LiderController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $this->lider->delete();
+        Session::flash('message-success','Lider Eliminado Correctamente');
+        return Redirect::to('/lider');
     }
 }
