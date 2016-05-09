@@ -16,6 +16,7 @@ class CreateOansistasTable extends Migration
             $table->increments('id');
             $table->string('nombre');
             $table->string('apellido');
+            $table->string('fullname');
             $table->date('fechaNacimiento');
             $table->integer('grado');
             $table->char('sexo');

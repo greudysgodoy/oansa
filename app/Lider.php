@@ -2,10 +2,22 @@
 
 namespace Oansa;
 
-use Illuminate\Database\Eloquent\Model;
 
-class Lider extends Model
+use Illuminate\Auth\Authenticatable;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+
+class Lider extends Model implements AuthenticatableContract,
+                                    AuthorizableContract,
+                                    CanResetPasswordContract
 {
+    use Authenticatable, Authorizable, CanResetPassword, SoftDeletes;
+
     protected $table = "lideres";
     protected $primaryKey="cedula";
     protected $fillable = [ 'cedula',
@@ -22,9 +34,15 @@ class Lider extends Model
                             'password',
     						'estatus'];
 
-    protected $hidden = [
-        'password', 'remember_token',
-    ];
+    protected $hidden = ['password', 'remember_token'];
+
+    protected $dates = ['deleted_at'];
+
+    public function setPasswordAttribute($valor){
+        if(!empty($valor)){
+            $this->attributes['password'] = \Hash::make($valor);
+        }
+    }
 
     public static function LideresActivos(){
     	return DB::table('lideres')

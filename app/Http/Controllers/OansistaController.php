@@ -28,9 +28,11 @@ class OansistaController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $oansistas = Oansista::orderBy('grado','ASC')->get();
+        $fullname = $request->get('fullname');
+        $club_id = $request->get('club_id');
+        $oansistas = Oansista::filtrar($fullname,$club_id);
         return view('oansista.index',compact('oansistas'));
     }
 
@@ -50,7 +52,7 @@ class OansistaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AreaRequest $request)
+    public function store(OansistaRequest $request)
     {
         $nombre=$request['nombre'];
         $apellido=$request['apellido'];
@@ -65,6 +67,7 @@ class OansistaController extends Controller
         Oansista::create([
             'nombre'=>$nombre,
             'apellido'=>$apellido,
+            'fullname'=>$nombre." ".$apellido,
             'fechaNacimiento'=>$fechaNacimiento,
             'grado'=>$grado,
             'sexo'=>$sexo,

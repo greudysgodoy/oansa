@@ -1,5 +1,5 @@
-$("#registro").click(function(){
-	var dato = $("#genre").val();
+$("#aprobar").click(function(){
+	var dato = $("#seccion_id").val();
 	var route = "/genero";
 	var token = $("#token").val();
 

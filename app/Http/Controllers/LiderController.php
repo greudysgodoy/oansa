@@ -124,8 +124,8 @@ class LiderController extends Controller
      */
     public function update(LiderRequest $request, $id)
     {
-        $this->oansista->fill($request->all());
-        $this->oansista->save();
+        $this->lider->fill($request->all());
+        $this->lider->save();
         Session::flash('message-success','Lider Actualizado Correctamente');
         return Redirect::to('/lider');
     }

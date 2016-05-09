@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 Route::get('admin','FrontController@admin');
 
@@ -23,3 +23,17 @@ Route::resource('area','AreaController');
 Route::resource('lider','LiderController');
 
 Route::resource('rol','RolController');
+
+Route::resource('nivelManual','NivelManualController');
+
+Route::get('manual/aprobar','ManualController@aprobar');
+Route::get('manual/seleccionar','ManualController@seleccionar');
+Route::get('manual/progreso', 'ManualController@progreso');
+Route::get('manual/aprobada/{manual_id}/{oansista_id}/{seccion_id?}', 'ManualController@aprobada');
+
+Route::resource('manual','ManualController');
+
+Route::resource('log','LogController');
+Route::get('logout','LogController@logout');
+
+

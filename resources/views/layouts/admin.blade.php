@@ -14,7 +14,9 @@
 </head>
 
 <body>
-
+                        <?php
+                            $rol = Auth::user()->rol_Id
+                        ?>
     <div id="wrapper">
 
         
@@ -33,13 +35,18 @@
             <ul class="nav navbar-top-links navbar-right">
                  <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        {!! Auth::user()->nombre !!}
                         <i class="fa fa-user fa-fw"></i>  <i class="fa fa-caret-down"></i>
+                        
                     </a>
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i> Ajustes</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="{!!URL::to('/logout')!!}"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
+                        </li>
+                        <li class="divider"></li>
+                        <li><a href="{!!URL::to('/lider/'.Auth::user()->cedula.'/edit')!!}"><i class="fa fa-sign-out fa-fw"></i> Editar perfil</a>
                         </li>
                     </ul>
                 </li>
@@ -60,7 +67,8 @@
                                 </li>
                             </ul>
                         </li>
-                    
+                      
+                        @if($rol == 1)
                         <li>
                             <a href="#"><i class="fa fa-child fa-fw"></i> Lider<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -72,6 +80,8 @@
                                 </li>
                             </ul>
                         </li>
+                    @endif
+                        
 
                         <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Area<span class="fa arrow"></span></a>
@@ -84,7 +94,7 @@
                                 </li>
                             </ul>
                         </li>
-
+                     @if(Auth::user()->rol_id == 1)       
                         <li>
                             <a href="#"><i class="fa fa-users fa-fw"></i> Administraión de roles<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -96,6 +106,18 @@
                                 </li>
                             </ul>
                         </li>
+                    @endif
+                        <li>
+                            <a href="#"><i class="fa fa-users fa-fw"></i> Manuales<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{!!URL::to('/manual')!!}"><i class='fa fa-plus fa-fw'></i> Asignar un manual</a>
+                                </li>
+                                <li>
+                                    <a href="{!!URL::to('/manual/aprobar')!!}"><i class='fa fa-list-ol fa-fw'></i> Aprobar Secciones</a>
+                                </li>
+                            </ul>
+                        </li>
 
                         <li>
                             <a href="#"><i class="fa fa-tasks"></i> Reportes<span class="fa arrow"></span></a>
@@ -103,6 +125,7 @@
                                 <li>
                                     <a href="#"><i class='fa fa-newspaper-o'></i> Reporte Semanal Lider</a>
                                 </li>
+
                                 <li>
                                     <a href="#"><i class='fa fa-newspaper-o'></i> Informe Semanal Club</a>
                                 </li>

@@ -13,7 +13,7 @@ class CreateLideresTable extends Migration
     public function up()
     {
         Schema::create('lideres', function (Blueprint $table) {
-            $table->string('cedula');
+            $table->integer('cedula')->unique()->unsigned();
             $table->string('nombre');
             $table->string('apellido');
             $table->date('fechaNacimiento');
@@ -27,9 +27,10 @@ class CreateLideresTable extends Migration
             $table->foreign('rol_Id')->references('id')->on('roles');
             $table->string('liderGdc');
             $table->string('telefonoLiderGdc');
-            
+            $table->SoftDeletes();
             $table->char('estatus');
             $table->timestamps();
+            $table->rememberToken();
         });
     }
 

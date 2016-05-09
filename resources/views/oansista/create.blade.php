@@ -4,12 +4,12 @@
 	{!!Form::open(['route'=>'oansista.store', 'method'=>'POST'],['class'=>'form-horizontal'])!!}
 		<h3>Registro de oansistas</h3>
 		<div class="form-group">
-			{!! Form::label('nombre','Nombre:')!!}
-			{!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Ingresa el Nombre del oansista']) !!}
+			{!! Form::label('nombre','Nombres:')!!}
+			{!! Form::text('nombre',null,['class'=>'form-control','placeholder'=>'Ingresa el nombre del oansista']) !!}
 		</div>
 		<div class="form-group">
-			{!! Form::label('apellido','Apellido:')!!}
-			{!! Form::text('apellido',null,['class'=>'form-control','placeholder'=>'Ingresa el Apellido del oansista']) !!}
+			{!! Form::label('apellido','Apellidos:')!!}
+			{!! Form::text('apellido',null,['class'=>'form-control','placeholder'=>'Ingresa el apellido del oansista']) !!}
 		</div>
 		<div class="form-group">
 			{!! Form::label('fechaNacimiento','Fecha de nacimiento:')!!}
